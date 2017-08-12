@@ -35,6 +35,7 @@ module.exports = (env) ->
       @_updateState
         mode: @COLOR_MODE
         color: color
+
       Promise.resolve()
 
     setWhite: ->

@@ -3,12 +3,13 @@ module.exports = (env) ->
   # import device wrappers
   IwyMaster = require('./devices/iwy_master')(env)
   Milight = require('./devices/milight')(env)
-  MilightRF24 = require('./devices/milightRF24')(env)
+  #MilightRF24 = require('./devices/milightRF24')(env)
   Wifi370 = require('./devices/wifi370')(env)
   unless process.env.NODE_ENV is 'travis-test'
     Blinkstick = require('./devices/blinkstick')(env)
   DummyLedLight = require('./devices/dummy')(env)
   HyperionLedLight = require('./devices/hyperion')(env)
+  MQTTLedLight = require('./devices/mqtt')(env)
 
   # import preadicares and actions
   ColorActionProvider = require('./predicates_and_actions/color_action')(env)
@@ -17,11 +18,12 @@ module.exports = (env) ->
 
     init: (app, @framework, @config) =>
       deviceConfigDef = require('./device-config-schema.coffee')
+      plugin = @
 
       @framework.deviceManager.registerDeviceClass 'IwyMaster',
         configDef: deviceConfigDef.IwyMaster
         createCallback: (config) -> return new IwyMaster(config)
-
+  
       @framework.deviceManager.registerDeviceClass 'Wifi370',
         configDef: deviceConfigDef.Wifi370
         createCallback: (config) -> return new Wifi370(config)
@@ -47,6 +49,10 @@ module.exports = (env) ->
       @framework.deviceManager.registerDeviceClass 'Hyperion',
         configDef: deviceConfigDef.HyperionLedLight
         createCallback: (config) -> return new HyperionLedLight(config)
+
+      @framework.deviceManager.registerDeviceClass 'MQTTLight',
+        configDef: deviceConfigDef.MQTTLedLight
+        createCallback: (config, lastState) -> return new MQTTLedLight(plugin, config, lastState)
 
       @framework.ruleManager.addActionProvider(new ColorActionProvider(@framework))
 
