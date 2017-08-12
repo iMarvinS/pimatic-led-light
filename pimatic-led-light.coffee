@@ -5,8 +5,8 @@ module.exports = (env) ->
   Milight = require('./devices/milight')(env)
   #MilightRF24 = require('./devices/milightRF24')(env)
   Wifi370 = require('./devices/wifi370')(env)
-  unless process.env.NODE_ENV is 'travis-test'
-    Blinkstick = require('./devices/blinkstick')(env)
+ # unless process.env.NODE_ENV is 'travis-test'
+  #  Blinkstick = require('./devices/blinkstick')(env)
   DummyLedLight = require('./devices/dummy')(env)
   HyperionLedLight = require('./devices/hyperion')(env)
   MQTTLedLight = require('./devices/mqtt')(env)
