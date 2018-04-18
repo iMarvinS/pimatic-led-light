@@ -18,6 +18,21 @@ To install the plugin on a Debian or Raspbian system libudev-dev must be install
 
 ## Configuration
 
+### For MqttLedLight
+This device requires the pimatic-mqtt plugin to be installed so that it can connect to a broker. 
+The brokerId is coming from pimatic-mqtt configuration.
+```
+{
+      "brokerId": "default" 
+      "onoffTopic": "myOnOffTopic"
+      "colorTopic": "myColorSetTopic"
+      "onoffStateTopic": "myOnOffStateTopic"
+      "colorStateTopic": "myColorStateTopic"
+      "onMessage": "1"
+      "offMessage": "0"
+}  
+```
+
 ### For IwyMaster
 
 ```
