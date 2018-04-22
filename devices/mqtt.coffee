@@ -74,6 +74,10 @@ module.exports = (env) ->
       @mqttclient.publish(@config.onoffTopic, @config.offMessage, { qos: @config.qos })
       Promise.resolve()
 
+    toggle: ->
+      if @power is false then @turnOn() else @turnOff()
+      Promise.resolve()
+
     setColor: (newColor) ->
       color = Color(newColor).rgb()
       @_updateState
